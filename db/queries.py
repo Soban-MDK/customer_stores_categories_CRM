@@ -70,7 +70,9 @@ LEFT JOIN (
     ORDER BY customer_id, created_at DESC
 ) si ON si.customer_id = c.id
 WHERE 
-    c.last_purchase_bill_date IN (
+    (c.ltv > 500
+    or c.no_of_bills > 5)
+    and c.last_purchase_bill_date IN (
         CURRENT_DATE - INTERVAL '102 days', 
         CURRENT_DATE - INTERVAL '132 days'
     );
