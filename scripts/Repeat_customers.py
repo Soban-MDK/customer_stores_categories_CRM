@@ -41,7 +41,7 @@ def filter_based_on_category(data):
 
 
 def final_data_limited(filtered_data):
-    filtered_data = filtered_data.sort_values(['category', 'LTV'], ascending=[True, False])
+    filtered_data = filtered_data.sort_values(['category', 'LTV', 'bill_count'], ascending=[True, False, False])
 
     final_data = pd.DataFrame()
     for category in repeat_category_values.keys():
