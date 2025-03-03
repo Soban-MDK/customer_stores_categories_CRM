@@ -1,3 +1,3 @@
-from scripts.New_customers import main
+from scripts.Repeat_customers import main
 
 main()

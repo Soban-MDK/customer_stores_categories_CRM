@@ -6,10 +6,10 @@ from db.common_helpers import get_data
 from db.connections import get_db_engine_pos
 from db.queries import NEW_CUSTOMERS_QUERY
 
-new_categroy_values = {
-    '0_To_3_Lacs': 30,                  
-    '3_To_6_Lacs': 40,
-    'Greater_Than_6_Lacs': 40
+new_category_values = {
+    '0_To_3_Lacs': 15,                  
+    '3_To_6_Lacs': 10,
+    'Greater_Than_6_Lacs': 5
 }
 
 
@@ -28,7 +28,7 @@ def assign_category(data, store_category_data):
     return data
 
 
-def filter_based_on_categroy(data):
+def filter_based_on_category(data):
     """Filters the data based on the category and removes the remaining data"""
     
     conditions = [
@@ -42,11 +42,11 @@ def filter_based_on_categroy(data):
 
 
 def final_data_limited(filtered_data):
-    filtered_data = filtered_data.sort_values(['category', 'AOV'], ascending=[True, False])
+    filtered_data = filtered_data.sort_values(['category', 'LTV'], ascending=[True, False])
 
     final_data = pd.DataFrame()
-    for category in new_categroy_values.keys():
-        final_data = pd.concat([final_data, filtered_data[filtered_data['category'] == category].head(new_categroy_values[category])])
+    for category in new_category_values.keys():
+        final_data = pd.concat([final_data, filtered_data[filtered_data['category'] == category].head(new_category_values[category])])
 
     return final_data
 
@@ -54,7 +54,7 @@ def final_data_limited(filtered_data):
 def main():
     new_customers_data = get_new_customers_data()
     # new_customers_data = assign_category(new_customers_data)
-    # filtered_data = filter_based_on_categroy(new_customers_data)
+    # filtered_data = filter_based_on_category(new_customers_data)
     # final_data = final_data_limited(filtered_data)
     #return final_data
 
